@@ -100,7 +100,7 @@ y6 = example_structure_df6.columns.tolist()
 data_list.append(y6)
 #print(data_list)
 
-structure7 = 'mriscor22' #resting state correlations
+structure7 = 'mriscor02' #resting state correlations
 example_structure_df7= pd.read_csv(data_path / f"{structure7}.txt", sep= '\t', header=[0, 1], nrows=0)
 y7 = example_structure_df7.columns.tolist()
 data_list.append(y7)
