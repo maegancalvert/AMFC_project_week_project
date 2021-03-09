@@ -100,7 +100,7 @@ y6 = example_structure_df6.columns.tolist()
 data_list.append(y6)
 #print(data_list)
 
-structure7 = 'abcd_betnet02' #resting state correlations
+structure7 = 'mriscor02' #resting state correlations
 example_structure_df7= pd.read_csv(data_path / f"{structure7}.txt", sep= '\t', header=[0, 1], nrows=0)
 y7 = example_structure_df7.columns.tolist()
 data_list.append(y7)
@@ -135,9 +135,9 @@ clinical = ['socialdev_pvict_c1', 'socialdev_pvict_c2', 'socialdev_pvict_c3', 's
             'crpbi_caregiver16_y']
 #behavioral = ['prosocial_q2_y', 'prosocial_q3_y'] # 'fit_ss_sleepperiod_minutes', 'fit_ss_avg_hr_deep',
 #cognitive = []
-#imaging = ["smri_vol_cdk_total", "smri_vol_scs_amygdalalh", 'mri_info_manufacturer',]
+imaging = ["rsfmri_cor_ngd_fopa_scs_aglh", "rsfmri_cor_ngd_fopa_scs_agrh"]
 
-data_elements_of_interest = demographic + clinical #+ behavioral + cognitive + imaging
+data_elements_of_interest = demographic + clinical + imaging #+ behavioral + cognitive
 #print(data_elements_of_interest)
 
 structures2read = {}
