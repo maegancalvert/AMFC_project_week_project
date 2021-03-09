@@ -10,6 +10,8 @@ from collections import namedtuple # structure data in an easy to consume way
 
 import requests # retrieve data from an online source
 
+
+
 # # save directory we downloaded the ABCD data to `data_path`
 data_path = Path("/home/mcalvert/ABCD3")
 # #glob (match) all text files in the `data_path` directory
@@ -132,8 +134,9 @@ clinical = ['ksads_ptsd_raw_754_p', 'ksads_ptsd_raw_755_p', 'ksads_ptsd_raw_756_
 
 family = ['famhx_ss_fath_prob_alc_p', 'famhx_ss_moth_prob_dg_p', 'asr_scr_anxdisord_r', 'asr_scr_somaticpr_r',
           'asr_scr_depress_r',	'asr_scr_avoidant_r',	'asr_scr_adhd_r',	'asr_scr_antisocial_r',	'asr_scr_inattention_r','asr_scr_hyperactive_r',
-          'demo_fam_exp1_v2_l', 'demo_fam_exp2_v2_l', 'demo_fam_exp3_v2_l', 'demo_fam_exp4_v2_l', 'demo_fam_exp5_v2_l',
-          'demo_fam_exp6_v2_l', 'demo_fam_exp7_v2_l',
+### cannot use poverty variables as they were collected after baseline ###
+#         'demo_fam_exp1_v2_l', 'demo_fam_exp2_v2_l', 'demo_fam_exp3_v2_l', 'demo_fam_exp4_v2_l', 'demo_fam_exp5_v2_l',
+#         'demo_fam_exp6_v2_l', 'demo_fam_exp7_v2_l',
           'fes_youth_q1', 'fes_youth_q2', 'fes_youth_q3', 'fes_youth_q4', 'fes_youth_q5', 'fes_youth_q6', 'fes_youth_q7', 'fes_youth_q8', 'fes_youth_q9',
           'fam_enviro1_p', 'fam_enviro2r_p', 'fam_enviro3_p', 'fam_enviro4r_p', 'fam_enviro5_p', 'fam_enviro6_p', 'fam_enviro7r_p', 'fam_enviro8_p', 'fam_enviro9r_p']
 
@@ -163,13 +166,21 @@ all_df = None
 for structure, elements in structures2read.items():
     data_structure_filtered_df = pd.read_csv(data_path / f"{structure}.txt", sep='\t', skiprows=[1], low_memory=False, usecols=common + elements)
     #print(data_structure_filtered_df)
-    data_structure_filtered_df = data_structure_filtered_df.query("eventname == 'baseline_year_1_arm_1'")
+    data_structure_filtered_df = data_structure_filtered_df.query("eventname == 'baseline_year_1_arm_1'") #("eventname == 'baseline_year_1_arm_1' or eventname == '1_year_follow_up_y_arm_1'")
     if all_df is None:
         all_df = data_structure_filtered_df[["subjectkey", "interview_date", "interview_age", "sex"] + elements]
     else:
         all_df = all_df.merge(data_structure_filtered_df[['subjectkey'] + elements], how='outer')
-print(all_df)
+#print(all_df)
 
-all_df[all_df.duplicated('subjectkey', keep=False)]
-#all_df = all_df.dropna()
-print(all_df.subjectkey.unique().shape)
+#all_df[all_df.duplicated(subset=['subjectkey'], keep=False)]
+nd_all_df = all_df.drop_duplicates(subset=['subjectkey'], keep='first')
+#print(nd_all_df)
+all_df = all_df.dropna()
+#print(nd_all_df.subjectkey.unique().shape)
+
+nd_all_df.to_csv ('/home/mcalvert/ABCD3/all_variables_of_interest.tsv')
+pd.set_option("display.max_rows", None, "display.max_columns", None)
+print(nd_all_df.count())
+print(nd_all_df.describe())
+print(nd_all_df.groupby(['sex']).count())
