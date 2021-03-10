@@ -181,6 +181,8 @@ all_df = all_df.dropna()
 
 nd_all_df.to_csv ('/home/mcalvert/ABCD3/all_variables_of_interest.tsv')
 pd.set_option("display.max_rows", None, "display.max_columns", None)
-print(nd_all_df.count())
-print(nd_all_df.describe())
-print(nd_all_df.groupby(['sex']).count())
+# print(nd_all_df.count())
+# print(nd_all_df.describe())
+# print(nd_all_df.groupby(['sex']).count())
+
+
