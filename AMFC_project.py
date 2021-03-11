@@ -130,22 +130,26 @@ demographic = ["site_id_l"]
 clinical = ['ksads_ptsd_raw_754_p', 'ksads_ptsd_raw_755_p', 'ksads_ptsd_raw_756_p', 'ksads_ptsd_raw_757_p', 'ksads_ptsd_raw_758_p',
             'ksads_ptsd_raw_759_p', 'ksads_ptsd_raw_760_p', 'ksads_ptsd_raw_761_p', 'ksads_ptsd_raw_762_p', 'ksads_ptsd_raw_763_p',
             'ksads_ptsd_raw_764_p', 'ksads_ptsd_raw_765_p', 'ksads_ptsd_raw_766_p', 'ksads_ptsd_raw_767_p', 'ksads_ptsd_raw_768_p',
-            'ksads_ptsd_raw_769_p', 'ksads_ptsd_raw_770_p']
+            'ksads_ptsd_raw_769_p', 'ksads_ptsd_raw_770_p'] #these are yes/no
 
-family = ['famhx_ss_fath_prob_alc_p', 'famhx_ss_moth_prob_dg_p', 'asr_scr_anxdisord_r', 'asr_scr_somaticpr_r',
-          'asr_scr_depress_r',	'asr_scr_avoidant_r',	'asr_scr_adhd_r',	'asr_scr_antisocial_r',	'asr_scr_inattention_r','asr_scr_hyperactive_r',
+family = ['famhx_ss_fath_prob_alc_p', 'famhx_ss_moth_prob_alc_p', 'famhx_ss_fath_prob_dg_p', 'famhx_ss_moth_prob_dg_p', 'famhx_ss_fath_prob_dprs_p',
+          'famhx_ss_moth_prob_dprs_p', 'famhx_ss_fath_prob_ma_p	', 'famhx_ss_moth_prob_ma_p', 'famhx_ss_fath_prob_vs_p', 'famhx_ss_moth_prob_vs_p',
+          'famhx_ss_fath_prob_trb_p', 'famhx_ss_moth_prob_trb_p', 'famhx_ss_fath_prob_nrv_p', 'famhx_ss_moth_prob_nrv_p', 'famhx_ss_fath_prob_scd_p',
+          'famhx_ss_moth_prob_scd_p', #these are yes/no
+          'asr_scr_anxdisord_r', 'asr_scr_somaticpr_r',
+          'asr_scr_depress_r',	'asr_scr_avoidant_r',	'asr_scr_adhd_r',	'asr_scr_antisocial_r',	'asr_scr_inattention_r','asr_scr_hyperactive_r',#these are scores
 ### cannot use poverty variables as they were collected after baseline ###
 #         'demo_fam_exp1_v2_l', 'demo_fam_exp2_v2_l', 'demo_fam_exp3_v2_l', 'demo_fam_exp4_v2_l', 'demo_fam_exp5_v2_l',
 #         'demo_fam_exp6_v2_l', 'demo_fam_exp7_v2_l',
-          'fes_youth_q1', 'fes_youth_q2', 'fes_youth_q3', 'fes_youth_q4', 'fes_youth_q5', 'fes_youth_q6', 'fes_youth_q7', 'fes_youth_q8', 'fes_youth_q9',
-          'fam_enviro1_p', 'fam_enviro2r_p', 'fam_enviro3_p', 'fam_enviro4r_p', 'fam_enviro5_p', 'fam_enviro6_p', 'fam_enviro7r_p', 'fam_enviro8_p', 'fam_enviro9r_p']
+          'fes_youth_q1', 'fes_youth_q2', 'fes_youth_q3', 'fes_youth_q4', 'fes_youth_q5', 'fes_youth_q6', 'fes_youth_q7', 'fes_youth_q8', 'fes_youth_q9', #these are yes/no
+          'fam_enviro1_p', 'fam_enviro2r_p', 'fam_enviro3_p', 'fam_enviro4r_p', 'fam_enviro5_p', 'fam_enviro6_p', 'fam_enviro7r_p', 'fam_enviro8_p', 'fam_enviro9r_p'] #these are yes/no
 
 resilience = ['crpbi_parent1_y', 'crpbi_parent2_y', 'crpbi_parent3_y', 'crpbi_parent4_y', 'crpbi_parent5_y',
           'crpbi_caregiver1_y', 'crpbi_caregiver2_y', 'crpbi_caregiver12_y', 'crpbi_caregiver13_y', 'crpbi_caregiver14_y', 'crpbi_caregiver15_y',
-          'crpbi_caregiver16_y']
-#behavioral = ['prosocial_q2_y', 'prosocial_q3_y'] # 'fit_ss_sleepperiod_minutes', 'fit_ss_avg_hr_deep',
+          'crpbi_caregiver16_y'] #rating scale
+#behavioral = []
 #cognitive = []
-imaging = ["rsfmri_cor_ngd_fopa_scs_aglh", "rsfmri_cor_ngd_fopa_scs_agrh"]
+imaging = ["rsfmri_cor_ngd_fopa_scs_aglh", "rsfmri_cor_ngd_fopa_scs_agrh"] #correlations
 
 data_elements_of_interest = demographic + clinical + family + resilience + imaging #+ behavioral + cognitive
 #print(data_elements_of_interest)
