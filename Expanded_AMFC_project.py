@@ -65,9 +65,8 @@ data_structures = json.loads(data)
 common = ["subjectkey", "interview_date", "interview_age", "eventname", "sex"]
 demographic = ["site_id_l", 'rel_family_id']
 clinical = ['medhx_6i', 'medhx_6p', 'medhx_6j', 'medhx_2m', 'medhx_2h','medhx_2f','medhx_2c','ksads_4_826_p',
-            'ksads_4_826_t','ksads_4_827_p','ksads_4_827_t', 'ksads_4_828_p', 'ksads_4_828_t','ksads_4_829_p',
-            'ksads_4_829_t','ksads_4_849_p','ksads_4_849_t','ksads_4_850_p','ksads_4_850_t','ksads_4_851_p',
-            'ksads_4_851_t','ksads_4_852_p','ksads_4_852_t', 'ksads_ptsd_raw_754_p', 'ksads_ptsd_raw_755_p',
+            'ksads_4_827_p','ksads_4_828_p','ksads_4_829_p','ksads_4_849_p','ksads_4_850_p','ksads_4_851_p',
+            'ksads_4_852_p','ksads_ptsd_raw_754_p', 'ksads_ptsd_raw_755_p',
             'ksads_ptsd_raw_756_p', 'ksads_ptsd_raw_757_p', 'ksads_ptsd_raw_758_p',
             'ksads_ptsd_raw_759_p', 'ksads_ptsd_raw_760_p', 'ksads_ptsd_raw_761_p', 'ksads_ptsd_raw_762_p', 'ksads_ptsd_raw_763_p',
             'ksads_ptsd_raw_764_p', 'ksads_ptsd_raw_765_p', 'ksads_ptsd_raw_766_p', 'ksads_ptsd_raw_767_p', 'ksads_ptsd_raw_768_p',
@@ -111,39 +110,31 @@ all_df = all_df.dropna()
 all_df.to_csv("/home/mcalvert/ABCD3/all_df.csv", sep=",", index=None)
 #all_df.shape, all_df.subjectkey.unique().shape
 
-# exclude if any ksads=1
-ksads_df = all_df[~all_df["ksads_4_826_p"].isin([1])]  # hallucinations present
-ksads_df = ksads_df[~ksads_df["ksads_4_826_t"].isin([1])]  # hallucinations present
-ksads_df = ksads_df[~ksads_df["ksads_4_827_p"].isin([1])]  # hallucinations past
-ksads_df = ksads_df[~ksads_df["ksads_4_827_t"].isin([1])]  # hallucinations past
-ksads_df = ksads_df[~ksads_df["ksads_4_828_p"].isin([1])]  # delusions present
-ksads_df = ksads_df[~ksads_df["ksads_4_828_t"].isin([1])]  # delusions present
-ksads_df = ksads_df[~ksads_df["ksads_4_829_p"].isin([1])]  # delusions past
-ksads_df = ksads_df[~ksads_df["ksads_4_829_t"].isin([1])]  # delusions past
-ksads_df = ksads_df[~ksads_df["ksads_4_849_p"].isin([1])]  # assoc. psychotic symptoms present
-ksads_df = ksads_df[~ksads_df["ksads_4_849_t"].isin([1])]  # assoc. psychotic symptoms present
-ksads_df = ksads_df[~ksads_df["ksads_4_850_p"].isin([1])]  # assoc. psychotic symptoms past
-ksads_df = ksads_df[~ksads_df["ksads_4_850_t"].isin([1])]  # assoc. psychotic symptoms past
-ksads_df = ksads_df[~ksads_df["ksads_4_851_p"].isin([1])]  # diagnosis scizophrenia spectrum present
-ksads_df = ksads_df[~ksads_df["ksads_4_851_t"].isin([1])]  # diagnosis scizophrenia spectrum present
-ksads_df = ksads_df[~ksads_df["ksads_4_852_p"].isin([1])]  # diagnosis scizophrenia spectrum past
-ksads_df = ksads_df[~ksads_df["ksads_4_852_t"].isin([1])]  # diagnosis scizophrenia spectrum past
+# keep only if ksads = 0 
+ksads_df = all_df[all_df["ksads_4_826_p"].isin([0])]  # hallucinations present
+ksads_df = ksads_df[ksads_df["ksads_4_827_p"].isin([0])]  # hallucinations past
+ksads_df = ksads_df[ksads_df["ksads_4_828_p"].isin([0])]  # delusions present
+ksads_df = ksads_df[ksads_df["ksads_4_829_p"].isin([0])]  # delusions past
+ksads_df = ksads_df[ksads_df["ksads_4_849_p"].isin([0])]  # assoc. psychotic symptoms present
+ksads_df = ksads_df[ksads_df["ksads_4_850_p"].isin([0])]  # assoc. psychotic symptoms past
+ksads_df = ksads_df[ksads_df["ksads_4_851_p"].isin([0])]  # diagnosis scizophrenia spectrum present
+ksads_df = ksads_df[ksads_df["ksads_4_852_p"].isin([0])]  # diagnosis scizophrenia spectrum past
 
 #ksads_df.shape, ksads_df.subjectkey.unique().shape
 
 # med history, 0=no, 1=yes
-med_df = ksads_df[~ksads_df["medhx_6i"].isin([1])]  # head injury
-med_df = med_df[~med_df["medhx_6p"].isin([1])]  # seizure
-med_df = med_df[~med_df["medhx_6j"].isin([1])]  # knocked unconscius
-med_df = med_df[~med_df["medhx_2m"].isin([1])]  # MS
-med_df = med_df[~med_df["medhx_2h"].isin([1])]  # epilepsy or seizures
-med_df = med_df[~med_df["medhx_2f"].isin([1])]  # cerebral palsy
-med_df = med_df[~med_df["medhx_2c"].isin([1])]  # brain injury
+med_df = ksads_df[ksads_df["medhx_6i"].isin([0])]  # head injury
+med_df = med_df[med_df["medhx_6p"].isin([0])]  # seizure
+med_df = med_df[med_df["medhx_6j"].isin([0])]  # knocked unconscius
+med_df = med_df[med_df["medhx_2m"].isin([0])]  # MS
+med_df = med_df[med_df["medhx_2h"].isin([0])]  # epilepsy or seizures
+med_df = med_df[med_df["medhx_2f"].isin([0])]  # cerebral palsy
+med_df = med_df[med_df["medhx_2c"].isin([0])]  # brain injury
 
 #med_df.shape, med_df.subjectkey.unique().shape
 
 # rec for inclusion?, 0 =no, 1 = yes
-qc_df = med_df[~med_df["imgincl_rsfmri_include"].isin([0])]
+qc_df = med_df[med_df["imgincl_rsfmri_include"].isin([1])]
 #qc_df.shape, qc_df.subjectkey.unique().shape
 
 # drop sibs
