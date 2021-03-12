@@ -105,13 +105,13 @@ for structure, elements in structures2read.items():
     else:
         all_df = all_df.merge(data_structure_filtered_df[['subjectkey'] + elements], how='outer')
 
-all_df[all_df.duplicated('subjectkey', keep=False)]
-all_df = all_df.dropna()
-all_df.to_csv("/home/mcalvert/ABCD3/all_df.csv", sep=",", index=None)
-#all_df.shape, all_df.subjectkey.unique().shape
-
+unique_df = all_df.drop_duplicates(subset='subjectkey', keep='first')
+#all_df = all_df.dropna()
+unique_df.to_csv("/home/mcalvert/ABCD3/all_df.csv", sep=",", index=None)
+#print(all_df.shape, all_df.subjectkey.unique().shape)
+#print(unique_df.shape)
 # keep only if ksads = 0 
-ksads_df = all_df[all_df["ksads_4_826_p"].isin([0])]  # hallucinations present
+ksads_df = unique_df[unique_df["ksads_4_826_p"].isin([0])]  # hallucinations present
 ksads_df = ksads_df[ksads_df["ksads_4_827_p"].isin([0])]  # hallucinations past
 ksads_df = ksads_df[ksads_df["ksads_4_828_p"].isin([0])]  # delusions present
 ksads_df = ksads_df[ksads_df["ksads_4_829_p"].isin([0])]  # delusions past
@@ -139,6 +139,7 @@ qc_df = med_df[med_df["imgincl_rsfmri_include"].isin([1])]
 
 # drop sibs
 subj_df = qc_df.drop_duplicates(subset='rel_family_id', keep='first')
+print(subj_df.shape)
 
 #subj_df.shape, subj_df.subjectkey.unique().shape
 
